@@ -70,7 +70,7 @@ class Binlog2sql(object):
         e_start_pos, last_pos = stream.log_pos, stream.log_pos
         # to simplify code, we do not use flock for tmp_file.
         tmp_file = create_unique_file('%s.%s' % (self.conn_setting['host'], self.conn_setting['port']))
-        with temp_open(tmp_file, "w") as f_tmp, self.connection as cursor:
+        with temp_open(tmp_file, "w") as f_tmp, self.connection.cursor() as cursor:
             for binlog_event in stream:
                 if not self.stop_never:
                     try:
